@@ -6,4 +6,4 @@ Route::post('statuses', 'StatusController@store')->name('status.store')->middlew
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::view('/', 'welcome');
