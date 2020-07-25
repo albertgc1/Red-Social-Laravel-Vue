@@ -8,6 +8,9 @@ import StatusItem from './components/StatusItem'
 
 window.EventBus = new Vue()
 
+import auth from './mixins/auth'
+Vue.mixin(auth)
+
 const app = new Vue({
 	el: '#app',
 	components: {

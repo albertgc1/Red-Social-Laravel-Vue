@@ -1,17 +1,20 @@
 <template>
-	<form @submit.prevent="submit">
+	<form v-if="isAuthenticated" @submit.prevent="submit">
         <div class="card-body">
             <textarea
             	v-model="body"
             	class="form-control border-0"
             	name="body"
-            	placeholder="¿Que estas pensando Albert?">
+            	:placeholder="`¿Que estas pensando ${user.name}?`">
             </textarea>
         </div>
         <div class="card-footer">
             <button class="btn btn-primary">Publicar</button>
         </div>
     </form>
+    <div v-else class="card-body">
+    	<p>Debes <a href="/login">autenticarte</a> para interactuar con la página</p>
+    </div>
 </template>
 
 <script>

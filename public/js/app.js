@@ -1924,6 +1924,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37605,44 +37608,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.submit($event)
-        }
-      }
-    },
-    [
-      _c("div", { staticClass: "card-body" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.body,
-              expression: "body"
-            }
-          ],
-          staticClass: "form-control border-0",
-          attrs: { name: "body", placeholder: "¿Que estas pensando Albert?" },
-          domProps: { value: _vm.body },
+  return _vm.isAuthenticated
+    ? _c(
+        "form",
+        {
           on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.body = $event.target.value
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submit($event)
             }
           }
-        })
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ]
-  )
+        },
+        [
+          _c("div", { staticClass: "card-body" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.body,
+                  expression: "body"
+                }
+              ],
+              staticClass: "form-control border-0",
+              attrs: {
+                name: "body",
+                placeholder: "¿Que estas pensando " + _vm.user.name + "?"
+              },
+              domProps: { value: _vm.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.body = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      )
+    : _c("div", { staticClass: "card-body" }, [_vm._m(1)])
 }
 var staticRenderFns = [
   function() {
@@ -37651,6 +37659,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-footer" }, [
       _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Publicar")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v("Debes "),
+      _c("a", { attrs: { href: "/login" } }, [_vm._v("autenticarte")]),
+      _vm._v(" para interactuar con la página")
     ])
   }
 ]
@@ -49917,6 +49935,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_StatusForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/StatusForm */ "./resources/js/components/StatusForm.vue");
 /* harmony import */ var _components_StatusList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/StatusList */ "./resources/js/components/StatusList.vue");
 /* harmony import */ var _components_StatusItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/StatusItem */ "./resources/js/components/StatusItem.vue");
+/* harmony import */ var _mixins_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mixins/auth */ "./resources/js/mixins/auth.js");
+/* harmony import */ var _mixins_auth__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mixins_auth__WEBPACK_IMPORTED_MODULE_3__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -49925,6 +49945,8 @@ var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"
 
 
 window.EventBus = new Vue();
+
+Vue.mixin(_mixins_auth__WEBPACK_IMPORTED_MODULE_3___default.a);
 var app = new Vue({
   el: '#app',
   components: {
@@ -50188,6 +50210,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StatusList_vue_vue_type_template_id_0bf1005b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/mixins/auth.js":
+/*!*************************************!*\
+  !*** ./resources/js/mixins/auth.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _user = document.head.querySelector("meta[name='user']");
+
+module.exports = {
+  computed: {
+    user: function user() {
+      return JSON.parse(_user.content);
+    },
+    isAuthenticated: function isAuthenticated() {
+      return !!_user.content;
+    },
+    guest: function guest() {
+      return !this.isAuthenticated;
+    }
+  }
+};
 
 /***/ }),
 
