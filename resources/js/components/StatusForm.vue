@@ -18,14 +18,16 @@
 	export default {
 		data(){
 			return{
-				body: '',
-				statuses: []
+				body: ''
 			}
 		},
 		methods: {
 			submit() {
 				axios.post('/statuses', { body: this.body })
-					.then(res => console.log(res))
+					.then(res => {
+						this.body = '',
+						EventBus.$emit('status-created', res.data.data)
+					})
 					.catch(e =>  console.log(e.response.data))
 			}
 		}

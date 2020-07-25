@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Status;
 use Illuminate\Http\Request;
+use App\Http\Resources\StatusResource;
 
 class StatusController extends Controller
 {
     public function index()
     {
-        //
+        $status = Status::latest()->paginate();
+
+        return StatusResource::collection($status);
     }
 
     public function create()
@@ -28,7 +31,7 @@ class StatusController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return response()->json(['body' => $status->body]);
+        return StatusResource::make($status);
     }
 
     public function show(Status $status)
