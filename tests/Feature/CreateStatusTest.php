@@ -19,7 +19,7 @@ class CreateStatusTest extends TestCase
     }
 
     /** @test */
-    public function testExample()
+    public function authenticated_user_can_create_statuses()
     {
         $this->withoutExceptionHandling();
 
@@ -28,13 +28,9 @@ class CreateStatusTest extends TestCase
 
         $response = $this->postJson(route('status.store', ['body' => 'mi primer status']));
 
-        $response->assertJson([
-            'body' => 'mi primer status'
-        ]);
-
         $this->assertDatabaseHas('statuses', [
             'body' => 'mi primer status',
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
