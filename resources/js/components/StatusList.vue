@@ -15,8 +15,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer">
-				<button class="btn btn-primary" v-on:click="like(status.id)">Me gusta</button>
+			<div class="card-footer d-flex align-items-center justify-content-between">
+				<button class="btn btn-primary" v-on:click="like(status)">Me gusta</button>
+				<span class="text-primary">{{ status.likes }}</span>
 			</div>
 		</div>
 	</div>
@@ -41,10 +42,10 @@
 			})
 		},
 		methods: {
-			like(id){
-				axios.post(`statuses/${id}/likes`)
+			like(status){
+				axios.post(`statuses/${status.id}/likes`)
 					.then(res => {
-						console.log(res)
+						status.likes ++
 					})
 					.catch(e =>  console.log(e.response.data))
 			}

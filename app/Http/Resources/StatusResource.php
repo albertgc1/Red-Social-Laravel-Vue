@@ -19,7 +19,8 @@ class StatusResource extends JsonResource
             'body' => $this->body,
             'user_name' => $this->user->name,
             'user_avatar'=> 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png',
-            'ago' => $this->created_at->diffForHumans()
+            'ago' => $this->created_at->diffForHumans(),
+            'likes' => $this->likes->count()
         ];
     }
 }
