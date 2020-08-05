@@ -2,10 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Like;
 use App\Status;
-use Tests\TestCase;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CanLikeStatusTest extends TestCase
 {
@@ -55,5 +56,22 @@ class CanLikeStatusTest extends TestCase
         $this->actingAs($user)->postJson(route('statuses.likes.store', $status));
 
         $this->assertEquals(1, $status->likes->count());
+    }
+
+    /** @test */
+    public function users_can_unlike_to_statuses()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $status = factory(Status::class)->create();
+        factory(Like::class)->create(['status_id' => $status->id, 'user_id' => $user->id]);
+
+        $this->actingAs($user)->deleteJson(route('statuses.likes.destroy', $status));
+
+        $this->assertDatabaseMissing('likes', [
+            'user_id' => $user->id,
+            'status_id' => $status->id
+        ]);
     }
 }

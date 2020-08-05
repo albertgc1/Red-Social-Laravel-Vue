@@ -1998,6 +1998,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2020,6 +2021,15 @@ __webpack_require__.r(__webpack_exports__);
     like: function like(status) {
       axios.post("statuses/".concat(status.id, "/likes")).then(function (res) {
         status.likes++;
+        status.is_liked = true;
+      })["catch"](function (e) {
+        return console.log(e.response.data);
+      });
+    },
+    unlike: function unlike(status) {
+      axios["delete"]("statuses/".concat(status.id, "/likes")).then(function (res) {
+        status.likes--;
+        status.is_liked = false;
       })["catch"](function (e) {
         return console.log(e.response.data);
       });
@@ -37770,18 +37780,31 @@ var render = function() {
               "card-footer d-flex align-items-center justify-content-between"
           },
           [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.like(status)
-                  }
-                }
-              },
-              [_vm._v("Me gusta")]
-            ),
+            status.is_liked
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.unlike(status)
+                      }
+                    }
+                  },
+                  [_vm._v("Te gusta")]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.like(status)
+                      }
+                    }
+                  },
+                  [_vm._v("Me gusta")]
+                ),
             _vm._v(" "),
             _c("span", { staticClass: "text-primary" }, [
               _vm._v(_vm._s(status.likes))

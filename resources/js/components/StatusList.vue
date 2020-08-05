@@ -16,7 +16,8 @@
 				</div>
 			</div>
 			<div class="card-footer d-flex align-items-center justify-content-between">
-				<button class="btn btn-primary" v-on:click="like(status)">Me gusta</button>
+				<button v-if="status.is_liked" class="btn btn-primary" @click="unlike(status)">Te gusta</button>
+				<button v-else class="btn btn-primary" @click="like(status)">Me gusta</button>
 				<span class="text-primary">{{ status.likes }}</span>
 			</div>
 		</div>
@@ -46,6 +47,15 @@
 				axios.post(`statuses/${status.id}/likes`)
 					.then(res => {
 						status.likes ++
+						status.is_liked = true
+					})
+					.catch(e =>  console.log(e.response.data))
+			},
+			unlike(status){
+				axios.delete(`statuses/${status.id}/likes`)
+					.then(res => {
+						status.likes --
+						status.is_liked = false
 					})
 					.catch(e =>  console.log(e.response.data))
 			}

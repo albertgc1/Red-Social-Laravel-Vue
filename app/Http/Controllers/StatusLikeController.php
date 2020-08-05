@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Status;
 use Illuminate\Http\Request;
 
@@ -9,8 +10,11 @@ class StatusLikeController extends Controller
 {
     public function store(Status $status)
     {
-    	$status->likes()->firstOrCreate([
-    		'user_id' => auth()->id()
-    	]);
+    	$status->like();
+    }
+
+    public function destroy(Status $status)
+    {
+    	$status->unLike();
     }
 }

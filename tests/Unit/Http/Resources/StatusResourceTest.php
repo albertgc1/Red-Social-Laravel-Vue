@@ -16,9 +16,6 @@ class StatusResourceTest extends TestCase
     public function a_status_resource_have_the_neccesary_fields()
     {
         $status = factory(Status::class)->create();
-        factory(Like::class)->create(['status_id' => $status->id]);
-        factory(Like::class)->create(['status_id' => $status->id]);
-        factory(Like::class)->create(['status_id' => $status->id]);
 
         $statusResource = StatusResource::make($status)->resolve();
 
@@ -27,6 +24,5 @@ class StatusResourceTest extends TestCase
         $this->assertEquals($status->user->name, $statusResource['user_name']);
         $this->assertEquals('https://iupac.org/wp-content/uploads/2018/05/default-avatar.png', $statusResource['user_avatar']);
         $this->assertEquals($status->created_at->diffForHumans(), $statusResource['ago']);
-        $this->assertEquals(3, $statusResource['likes']);
     }
 }
