@@ -15,6 +15,9 @@
 					</div>
 				</div>
 			</div>
+			<div class="card-footer">
+				<button class="btn btn-primary" v-on:click="like(status.id)">Me gusta</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -36,6 +39,15 @@
 			EventBus.$on('status-created', status => {
 				this.statuses.unshift(status)
 			})
+		},
+		methods: {
+			like(id){
+				axios.post(`statuses/${id}/likes`)
+					.then(res => {
+						console.log(res)
+					})
+					.catch(e =>  console.log(e.response.data))
+			}
 		}
 	};
 </script>
