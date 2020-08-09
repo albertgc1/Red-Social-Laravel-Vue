@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div v-for="status in statuses" class="card mb-3 border-0 shadow">
+	<div @click="redirectIfGuest">
+		<div v-for="status in statuses" :key="status.id" class="card mb-3 border-0 shadow">
 			<div class="card-body">
 				<div class="d-flex flex-column">
 					<div class="d-flex mb-2 align-item-center">
@@ -16,9 +16,21 @@
 				</div>
 			</div>
 			<div class="card-footer d-flex align-items-center justify-content-between">
-				<button v-if="status.is_liked" class="btn btn-primary" @click="unlike(status)">Te gusta</button>
-				<button v-else class="btn btn-primary" @click="like(status)">Me gusta</button>
-				<span class="text-primary">{{ status.likes }}</span>
+				<button 
+					v-if="status.is_liked"
+					@click="unlike(status)"
+					class="btn btn-link"
+				>
+					<i class="fa fa-thumbs-up"></i> Te gusta
+				</button>
+				<button 
+					v-else
+					@click="like(status)" 
+					class="btn btn-link"
+				>
+					<i class="far fa-thumbs-up"></i> Me gusta
+				</button>
+				<span class="text-primary"> {{ status.likes }}</span>
 			</div>
 		</div>
 	</div>
