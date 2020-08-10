@@ -2040,6 +2040,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2052,7 +2075,25 @@ __webpack_require__.r(__webpack_exports__);
     LikeBtn: _LikeBtn__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      body: ''
+    };
+  },
+  methods: {
+    storeComment: function storeComment(id) {
+      var _this = this;
+
+      axios.post("statuses/".concat(id, "/comments"), {
+        body: this.body
+      }).then(function (res) {
+        console.log(res.data.data);
+
+        _this.status.comments.unshift(res.data.data); //EventBus.$emit('status-created', res.data.data)
+
+      })["catch"](function (e) {
+        return console.log(e.response.data);
+      });
+    }
   }
 });
 
@@ -37857,7 +37898,7 @@ var render = function() {
       "div",
       {
         staticClass:
-          "card-footer d-flex align-items-center justify-content-between"
+          "card-footer p-1 d-flex align-items-center justify-content-between"
       },
       [
         _c("like-btn", { attrs: { status: _vm.status } }),
@@ -37867,6 +37908,85 @@ var render = function() {
         ])
       ],
       1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "comments" },
+      [
+        _c("div", { staticClass: "input-group mb-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.body,
+                expression: "body"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Escribe algo aquí" },
+            domProps: { value: _vm.body },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.body = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-append" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-primary",
+                attrs: { type: "button", id: "button-addon2" },
+                on: {
+                  click: function($event) {
+                    return _vm.storeComment(_vm.status.id)
+                  }
+                }
+              },
+              [_vm._v("Commentar")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.status.comments, function(comment) {
+          return _c("div", { key: comment.id, staticClass: "card p-2" }, [
+            _c("div", { staticClass: "d-flex" }, [
+              _c("img", {
+                staticClass: "rounded mr-2 shadow",
+                attrs: {
+                  width: "30px",
+                  height: "30px",
+                  src: comment.user_avatar,
+                  alt: comment.user_name
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex flex-column" }, [
+                _c("span", [
+                  _c("strong", [_vm._v(_vm._s(comment.user_name))]),
+                  _vm._v(" " + _vm._s(comment.body))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "text-muted",
+                    staticStyle: { "font-size": "12px" }
+                  },
+                  [_vm._v(_vm._s(comment.ago))]
+                )
+              ])
+            ])
+          ])
+        })
+      ],
+      2
     )
   ])
 }
@@ -50292,15 +50412,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./resources/js/components/StatusItem.vue ***!
   \************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StatusItem_vue_vue_type_template_id_01eb8850___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StatusItem.vue?vue&type=template&id=01eb8850& */ "./resources/js/components/StatusItem.vue?vue&type=template&id=01eb8850&");
 /* harmony import */ var _StatusItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StatusItem.vue?vue&type=script&lang=js& */ "./resources/js/components/StatusItem.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _StatusItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _StatusItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50330,7 +50449,7 @@ component.options.__file = "resources/js/components/StatusItem.vue"
 /*!*************************************************************************!*\
   !*** ./resources/js/components/StatusItem.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

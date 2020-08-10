@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StatusResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,9 +20,6 @@ class StatusResource extends JsonResource
             'user_name' => $this->user->name,
             'user_avatar'=> 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png',
             'ago' => $this->created_at->diffForHumans(),
-            'likes' => $this->likesCount(),
-            'is_liked' => $this->isLiked(),
-            'comments' => CommentResource::collection($this->comments)
         ];
     }
 }

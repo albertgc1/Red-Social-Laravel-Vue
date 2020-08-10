@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Http\Resources;
 
-use App\Like;
 use App\Status;
 use Tests\TestCase;
 use App\Http\Resources\StatusResource;
