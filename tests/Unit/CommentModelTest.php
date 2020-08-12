@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\User;
 use App\Comment;
-use App\Like;
 use Tests\TestCase;
+use App\Traits\HasLikes;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentModelTest extends TestCase
@@ -22,15 +22,10 @@ class CommentModelTest extends TestCase
     }
 
     /** @test */
-    public function a_comment_morph_many_likes()
+    public function a_comment_model_must_use_the_trait_has_likes()
     {
-        $comment = factory(Comment::class)->create();
-
-        factory(Like::class)->create([
-            'likeable_id' => $comment->id,
-            'likeable_type' => get_class($comment)
-        ]);
-
-        $this->assertInstanceOf(Like::class, $comment->likes->first());
+        $uses = class_uses(Comment::class);
+        
+        $this->assertArrayHasKey(HasLikes::class, $uses);
     }
 }

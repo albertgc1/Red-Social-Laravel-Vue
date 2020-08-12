@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Comment;
-use App\Like;
 use App\User;
 use App\Status;
+use App\Comment;
 use Tests\TestCase;
+use App\Traits\HasLikes;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StatusModelTest extends TestCase
@@ -22,19 +22,6 @@ class StatusModelTest extends TestCase
     }
 
     /** @test */
-    public function a_status_morph_many_likes()
-    {
-    	$status = factory(Status::class)->create();
-
-    	factory(Like::class)->create([
-            'likeable_id' => $status->id,
-            'likeable_type' => get_class($status)
-        ]);
-
-    	$this->assertInstanceOf(Like::class, $status->likes->first());
-    }
-
-    /** @test */
     public function a_status_has_many_comments()
     {
     	$status = factory(Status::class)->create();
@@ -45,63 +32,10 @@ class StatusModelTest extends TestCase
     }
 
     /** @test */
-    public function user_can_like_and_unlike_statuses()
+    public function a_status_model_must_use_the_trait_has_likes()
     {
-        $this->withoutExceptionHandling();
+        $uses = class_uses(Status::class);
 
-        $status = factory(Status::class)->create();
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user);
-
-        $status->like();
-
-        $this->assertDatabaseHas('likes', ['user_id' => $user->id]);
-
-        $status->unLike();
-
-        $this->assertDatabaseMissing('likes', ['user_id' => $user->id]);
-    }
-
-    /** @test */
-    public function status_knows_it_was_liked()
-    {
-        $this->withoutExceptionHandling();
-
-        $user = factory(User::class)->create();
-        $status = factory(Status::class)->create();
-
-        $this->actingAs($user);
-
-        $this->assertEquals(false, $status->isLiked());
-
-        $status->like();
-
-        $this->assertEquals(true, $status->fresh()->isLiked());
-
-        $status->unLike();
-
-        $this->assertEquals(false, $status->fresh()->isLiked());
-    }
-
-    /** @test */
-    public function status_knows_how_many_likes_have()
-    {
-        $this->withoutExceptionHandling();
-
-        $user = factory(User::class)->create();
-        $status = factory(Status::class)->create();
-
-        $this->actingAs($user);
-
-        $this->assertEquals(0, $status->likesCount());
-
-        $status->like();
-
-        $this->assertEquals(1, $status->fresh()->likesCount());
-
-        $status->unLike();
-
-        $this->assertEquals(0, $status->fresh()->likesCount());
+        $this->assertArrayHasKey(HasLikes::class, $uses);
     }
 }
