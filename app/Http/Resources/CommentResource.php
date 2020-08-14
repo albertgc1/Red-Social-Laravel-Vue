@@ -19,6 +19,8 @@ class CommentResource extends JsonResource
             'body' => $this->body,
             'user_name' => $this->user->name,
             'user_avatar'=> 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png',
+            'likes' => $this->likesCount(),
+            'is_liked' => $this->isLiked(),
             'ago' => $this->created_at->diffForHumans(),
         ];
     }

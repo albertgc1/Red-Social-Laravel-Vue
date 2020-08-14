@@ -1,13 +1,13 @@
 <template>
     <button 
-        v-if="status.is_liked"
-        @click="unlike(status)"
+        v-if="resource.is_liked"
+        @click="unlike()"
         class="btn btn-link">
         <i class="fa fa-thumbs-up"></i> Te gusta
     </button>
     <button 
         v-else
-        @click="like(status)" 
+        @click="like()" 
         class="btn btn-link">
         <i class="far fa-thumbs-up"></i> Me gusta
     </button>
@@ -16,25 +16,29 @@
 <script>
     export default {
         props: {
-			status: {
+			resource: {
 				type: Object,
+				required: true
+			},
+			url: {
+				type: String,
 				required: true
 			}
 		},
         methods: {
-			like(status){
-				axios.post(`statuses/${status.id}/likes`)
+			like(){
+				axios.post(this.url)
 					.then(res => {
-						status.likes ++
-						status.is_liked = true
+						this.resource.likes ++
+						this.resource.is_liked = true
 					})
 					.catch(e =>  console.log(e.response.data))
 			},
-			unlike(status){
-				axios.delete(`statuses/${status.id}/likes`)
+			unlike(){
+				axios.delete(this.url)
 					.then(res => {
-						status.likes --
-						status.is_liked = false
+						this.resource.likes --
+						this.resource.is_liked = false
 					})
 					.catch(e =>  console.log(e.response.data))
 			}
