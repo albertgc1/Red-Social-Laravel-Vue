@@ -2139,6 +2139,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -38548,7 +38550,11 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "d-flex flex-column" }, [
                   _c("span", [
-                    _c("strong", [_vm._v(_vm._s(comment.user_name))]),
+                    _c("strong", [
+                      _c("a", { attrs: { href: comment.user_link } }, [
+                        _vm._v(_vm._s(comment.user_name))
+                      ])
+                    ]),
                     _vm._v(" " + _vm._s(comment.body))
                   ]),
                   _vm._v(" "),
@@ -38713,7 +38719,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", [
               _c("h5", { staticClass: "mb-0" }, [
-                _vm._v(_vm._s(_vm.status.user_name))
+                _c("a", { attrs: { href: _vm.status.user_link } }, [
+                  _vm._v(_vm._s(_vm.status.user_name))
+                ])
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "small text-muted" }, [

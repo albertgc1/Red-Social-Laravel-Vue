@@ -21,6 +21,7 @@ class CommentResourceTest extends TestCase
         $this->assertEquals($comment->id, $commentResource['id']);
         $this->assertEquals($comment->body, $commentResource['body']);
         $this->assertEquals($comment->user->name, $commentResource['user_name']);
+        $this->assertEquals($comment->user->link(), $commentResource['user_link']);
         $this->assertEquals('https://iupac.org/wp-content/uploads/2018/05/default-avatar.png', $commentResource['user_avatar']);
         $this->assertEquals($comment->created_at->diffForHumans(), $commentResource['ago']);
     }

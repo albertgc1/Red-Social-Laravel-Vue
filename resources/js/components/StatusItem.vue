@@ -5,7 +5,9 @@
 				<div class="d-flex mb-2 align-item-center">
 					<img class="rounded mr-2 shadow" width="40px" height="40px" :src="status.user_avatar">
 					<div>
-						<h5 class="mb-0">{{ status.user_name }}</h5>
+						<h5 class="mb-0">
+							<a :href="status.user_link">{{ status.user_name }}</a>
+						</h5>
 						<span class="small text-muted">{{ status.ago }}</span>
 					</div>
 				</div>
