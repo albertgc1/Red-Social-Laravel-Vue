@@ -15,9 +15,9 @@
 				class="card p-2">
 				<div class="d-flex align-items-center justify-content-between">
 					<div class="d-flex">
-                        <img class="rounded mr-2 shadow" width="30px" height="30px" :src="comment.user_avatar" :alt="comment.user_name">
+                        <img class="rounded mr-2 shadow" width="30px" height="30px" :src="comment.user.avatar" :alt="comment.user.name">
                         <div class="d-flex flex-column">
-                            <span> <strong><a :href="comment.user_link">{{ comment.user_name }}</a></strong> {{ comment.body }}</span>
+                            <span> <strong><a :href="comment.user.link">{{ comment.user.name }}</a></strong> {{ comment.body }}</span>
                             <span class="text-muted" style="font-size: 12px">{{ comment.ago }}</span>
                         </div>
                     </div>

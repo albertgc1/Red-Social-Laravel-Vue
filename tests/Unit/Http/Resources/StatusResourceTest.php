@@ -4,7 +4,9 @@ namespace Tests\Unit\Http\Resources;
 
 use App\Status;
 use Tests\TestCase;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\StatusResource;
+use App\Http\Resources\CommentResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StatusResourceTest extends TestCase
@@ -20,9 +22,16 @@ class StatusResourceTest extends TestCase
 
         $this->assertEquals($status->id, $statusResource['id']);
         $this->assertEquals($status->body, $statusResource['body']);
-        $this->assertEquals($status->user->name, $statusResource['user_name']);
-        $this->assertEquals('https://iupac.org/wp-content/uploads/2018/05/default-avatar.png', $statusResource['user_avatar']);
-        $this->assertEquals($status->user->link(), $statusResource['user_link']);
         $this->assertEquals($status->created_at->diffForHumans(), $statusResource['ago']);
+
+        $this->assertEquals(
+            CommentResource::class,
+            $statusResource['comments']->collects
+        );
+
+        $this->assertInstanceOf(
+            UserResource::class,
+            $statusResource['user']
+        );
     }
 }

@@ -3,10 +3,10 @@
 		<div class="card-body">
 			<div class="d-flex flex-column">
 				<div class="d-flex mb-2 align-item-center">
-					<img class="rounded mr-2 shadow" width="40px" height="40px" :src="status.user_avatar">
+					<img class="rounded mr-2 shadow" width="40px" height="40px" :src="status.user.avatar">
 					<div>
 						<h5 class="mb-0">
-							<a :href="status.user_link">{{ status.user_name }}</a>
+							<a :href="status.user.link">{{ status.user.name }}</a>
 						</h5>
 						<span class="small text-muted">{{ status.ago }}</span>
 					</div>

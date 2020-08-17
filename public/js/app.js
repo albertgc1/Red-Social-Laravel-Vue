@@ -38543,16 +38543,16 @@ var render = function() {
                   attrs: {
                     width: "30px",
                     height: "30px",
-                    src: comment.user_avatar,
-                    alt: comment.user_name
+                    src: comment.user.avatar,
+                    alt: comment.user.name
                   }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "d-flex flex-column" }, [
                   _c("span", [
                     _c("strong", [
-                      _c("a", { attrs: { href: comment.user_link } }, [
-                        _vm._v(_vm._s(comment.user_name))
+                      _c("a", { attrs: { href: comment.user.link } }, [
+                        _vm._v(_vm._s(comment.user.name))
                       ])
                     ]),
                     _vm._v(" " + _vm._s(comment.body))
@@ -38713,14 +38713,14 @@ var render = function() {
               attrs: {
                 width: "40px",
                 height: "40px",
-                src: _vm.status.user_avatar
+                src: _vm.status.user.avatar
               }
             }),
             _vm._v(" "),
             _c("div", [
               _c("h5", { staticClass: "mb-0" }, [
-                _c("a", { attrs: { href: _vm.status.user_link } }, [
-                  _vm._v(_vm._s(_vm.status.user_name))
+                _c("a", { attrs: { href: _vm.status.user.link } }, [
+                  _vm._v(_vm._s(_vm.status.user.name))
                 ])
               ]),
               _vm._v(" "),
