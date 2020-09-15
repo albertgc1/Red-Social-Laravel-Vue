@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Status;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -32,5 +33,27 @@ class ListStatusesTest extends TestCase
         ]);
 
         $this->assertEquals($status->id, $response->json('data.0.id'));
+    }
+
+    /** @test */
+    public function can_get_statuses_for_a_specific_user()
+    {
+        $this->withoutExceptionHandling();
+        
+        $user = factory(User::class)->create();
+        factory(Status::class)->create(['user_id' => $user->id, 'created_at' => now()->subDay()]);
+        $status1 = factory(Status::class)->create(['user_id' => $user->id]);
+
+        $response = $this->actingAs($user)->getJson(route('users.statuses.index', $user));
+
+        $response->assertJson([
+            'meta' => ['total' => 2]
+        ]);
+
+        $response->assertJsonStructure([
+            'data', 'links' => ['prev', 'next']
+        ]);
+
+        $this->assertEquals($status1->id, $response->json('data.0.id'));
     }
 }

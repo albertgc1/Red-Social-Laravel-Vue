@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use App\Status;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -32,5 +33,14 @@ class UserModelTest extends TestCase
         $user = factory(User::class)->make();
 
         $this->assertEquals('https://iupac.org/wp-content/uploads/2018/05/default-avatar.png', $user->avatar());
+    }
+
+    /** @test */
+    public function a_user_has_many_statuses()
+    {
+        $user = factory(User::class)->create();
+        factory(Status::class)->create(['user_id' => $user->id]);
+
+        $this->assertInstanceOf(Status::class, $user->statuses->first());
     }
 }

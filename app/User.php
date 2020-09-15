@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return route('users.show', $this);
     }
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
 }
