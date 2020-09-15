@@ -45,6 +45,11 @@ class User extends Authenticatable
     {
         return 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png';
     }
+
+    /*public function getAvatarAttribute()
+    {
+        return $this->avatar();
+    }*/
     
     public function link()
     {
