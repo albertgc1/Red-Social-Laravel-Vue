@@ -17,6 +17,10 @@ Route::get('@{user}', 'UsersController@show')->name('users.show');
 
 Route::get('users/{user}/statuses', 'UserStatusController@index')->name('users.statuses.index');
 
+Route::post('friendships/{recipient}', 'FriendshipController@store')->name('friendships.store');
+Route::put('friendships/{sender}/{denied?}', 'FriendshipController@update')->name('friendships.update');
+Route::delete('friendships/{recipient}', 'FriendshipController@destroy')->name('friendships.destroy');
+
 Auth::routes();
 
 Route::view('/', 'welcome');
