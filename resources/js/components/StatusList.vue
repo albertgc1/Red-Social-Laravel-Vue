@@ -13,13 +13,16 @@
 	import StatusItem from './StatusItem'
 	export default {
 		components: { StatusItem },
+		props: {
+			url: String
+		},
 		data(){
 			return {
 				statuses: []
 			}
 		},
 		mounted(){
-			axios.get('/statuses')
+			axios.get(this.getUrl)
 				.then(res => {
 					this.statuses = res.data.data
 				})
@@ -28,6 +31,11 @@
 			EventBus.$on('status-created', status => {
 				this.statuses.unshift(status)
 			})
+		},
+		computed: {
+			getUrl(){
+				return this.url ? this.url : '/statuses'
+			}
 		}
 	};
 </script>

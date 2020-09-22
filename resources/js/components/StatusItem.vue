@@ -22,7 +22,7 @@
 				:url="url"
 				>
 			</like-btn>
-			<span class="text-primary"> {{ status.likes }}</span>
+			<span class="text-primary mr-2"> {{ status.likes }}</span>
 		</div>
 		<status-comment
 			:status="status"
