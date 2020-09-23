@@ -6,6 +6,7 @@ import StatusForm from './components/StatusForm'
 import StatusList from './components/StatusList'
 import StatusItem from './components/StatusItem'
 import FriendshipBtn from './components/FriendshipBtn'
+import FriendshipItem from './components/FriendshipItem'
 
 window.EventBus = new Vue()
 
@@ -18,6 +19,7 @@ const app = new Vue({
 		'status-form': StatusForm,
 		'status-list': StatusList,
 		'status-item': StatusItem,
-		'friendship-btn': FriendshipBtn
+		'friendship-btn': FriendshipBtn,
+		'friendship-item': FriendshipItem
 	}
 })

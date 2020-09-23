@@ -16,6 +16,7 @@
                         friendship-status="{{ $friendshipStatus }}"
                         :recipient="{{ $user }}">
                     </friendship-btn>
+                    <a href="{{ route('friendships.index') }}">Ver amigos</a>
                 </div>
             </div>
         </div>

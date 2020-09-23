@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Friendship;
 use App\User;
-use Illuminate\Http\Request;
 
 class FriendshipController extends Controller
 {
+    public function index()
+    {
+        $friendships = Friendship::with('sender')->where('recipient_id', auth()->id())->get();
+
+        return view('users.friendships', compact('friendships'));
+    }
+
     public function store(User $recipient)
     {
         Friendship::firstOrCreate([
