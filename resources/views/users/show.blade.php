@@ -10,6 +10,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $user->name }}</h5>
                 </div>
+                <div class="card-footer">
+                    <friendship-btn
+                        class="btn btn-primary btn-block"
+                        friendship-status="{{ $friendshipStatus }}"
+                        :recipient="{{ $user }}">
+                    </friendship-btn>
+                </div>
             </div>
         </div>
         <div class="col-md-9">

@@ -12,6 +12,15 @@ class RequestFriendschipTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function guests_users_cannon_send_firenship_request()
+    {
+        $user = factory(User::class)->create();
+
+        $this->postJson(route('friendships.store', $user))
+            ->assertStatus(401);
+    }
+
+    /** @test */
     public function can_send_firendship_request()
     {
         $this->withExceptionHandling();
@@ -26,6 +35,15 @@ class RequestFriendschipTest extends TestCase
             'recipient_id' => $recipient->id,
             'status' => 'pending'
         ]);
+    }
+
+    /** @test */
+    public function guests_users_cannon_cancel_firenship_request()
+    {
+        $user = factory(User::class)->create();
+
+        $this->deleteJson(route('friendships.store', $user))
+            ->assertStatus(401);
     }
 
     /** @test */
@@ -47,6 +65,15 @@ class RequestFriendschipTest extends TestCase
             'sender_id' => $sender->id,
             'recipient_id' => $recipient->id
         ]);
+    }
+
+    /** @test */
+    public function guests_users_cannon_accept_or_nedied_firenship_request()
+    {
+        $user = factory(User::class)->create();
+
+        $this->putJson(route('friendships.store', $user))
+            ->assertStatus(401);
     }
 
     /** @test */
