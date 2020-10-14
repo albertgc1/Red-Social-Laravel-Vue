@@ -11,11 +11,13 @@
                     <h5 class="card-title">{{ $user->name }}</h5>
                 </div>
                 <div class="card-footer">
-                    <friendship-btn
-                        class="btn btn-primary btn-block"
-                        friendship-status="{{ $friendshipStatus }}"
-                        :recipient="{{ $user }}">
-                    </friendship-btn>
+                    @if (auth()->id() != $user->id)
+                        <friendship-btn
+                            class="btn btn-primary btn-block"
+                            friendship-status="{{ $friendshipStatus }}"
+                            :recipient="{{ $user }}">
+                        </friendship-btn>
+                    @endif
                     <a href="{{ route('friendships.index') }}">Ver amigos</a>
                 </div>
             </div>

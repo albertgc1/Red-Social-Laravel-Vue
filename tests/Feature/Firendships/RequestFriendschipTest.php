@@ -38,6 +38,22 @@ class RequestFriendschipTest extends TestCase
     }
 
     /** @test */
+    public function cannon_send_firendship_request_to_itself()
+    {
+        $this->withExceptionHandling();
+
+        $sender = factory(User::class)->create();
+
+        $this->actingAs($sender)->postJson(route('friendships.store', $sender));
+
+        $this->assertDatabaseMissing('friendships', [
+            'sender_id' => $sender->id,
+            'recipient_id' => $sender->id,
+            'status' => 'pending'
+        ]);
+    }
+
+    /** @test */
     public function guests_users_cannon_cancel_firenship_request()
     {
         $user = factory(User::class)->create();
