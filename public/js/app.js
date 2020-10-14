@@ -1942,7 +1942,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getMethod: function getMethod() {
-      if (this.localFriendshipStatus === 'pending') {
+      if (this.localFriendshipStatus === 'pending' || this.localFriendshipStatus === 'accepted') {
         return 'delete';
       }
 
@@ -1951,8 +1951,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getText: function getText() {
+      console.log(this.localFriendshipStatus);
+
       if (this.localFriendshipStatus === 'pending') {
         return 'Cancelar solicitud';
+      }
+
+      if (this.localFriendshipStatus === 'accepted') {
+        return 'Eliminar de mis amigos';
       }
 
       return 'Enviar solicitud';

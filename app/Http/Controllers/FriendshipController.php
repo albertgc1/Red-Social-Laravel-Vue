@@ -39,6 +39,9 @@ class FriendshipController extends Controller
         Friendship::where([
             'sender_id' => auth()->id(),
             'recipient_id' => $recipient->id,
+        ])->orWhere([
+            'sender_id' => $recipient->id,
+            'recipient_id' => auth()->id(),
         ])->delete();
 
         return response()->json(['friendship_status' => 'deleted']);

@@ -122,4 +122,38 @@ class RequestFriendschipTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function can_delete_a_firendship()
+    {
+        $this->withExceptionHandling();
+
+        $sender = factory(User::class)->create();
+        $recipient = factory(User::class)->create();
+        $otherUser = factory(User::class)->create();
+
+        Friendship::create([
+            'sender_id' => $sender->id,
+            'recipient_id' => $recipient->id,
+            'status' => 'accepted'
+        ]);
+
+        Friendship::create([
+            'sender_id' => $otherUser->id,
+            'recipient_id' => $sender->id,
+            'status' => 'accepted'
+        ]);
+
+        $this->actingAs($sender)->deleteJson(route('friendships.destroy', $otherUser));
+
+        $this->assertDatabaseHas('friendships', [
+            'sender_id' => $sender->id,
+            'recipient_id' => $recipient->id
+        ]);
+
+        $this->assertDatabaseMissing('friendships', [
+            'sender_id' => $sender->id,
+            'recipient_id' => $otherUser->id
+        ]);
+    }
+
 }

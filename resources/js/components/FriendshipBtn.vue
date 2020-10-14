@@ -31,7 +31,7 @@
 					.catch(e =>  console.log(e.response.data))
             },
             getMethod(){
-                if(this.localFriendshipStatus === 'pending'){
+                if(this.localFriendshipStatus === 'pending' || this.localFriendshipStatus === 'accepted'){
                     return 'delete'
                 }
                 return 'post'
@@ -39,8 +39,12 @@
         },
         computed: {
             getText(){
+                console.log(this.localFriendshipStatus)
                 if(this.localFriendshipStatus === 'pending'){
                     return 'Cancelar solicitud'
+                }
+                if(this.localFriendshipStatus === 'accepted'){
+                    return 'Eliminar de mis amigos'
                 }
                 return 'Enviar solicitud'
             }
