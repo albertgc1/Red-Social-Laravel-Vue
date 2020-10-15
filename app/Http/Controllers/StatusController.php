@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StatusCreated;
 use App\Status;
 use Illuminate\Http\Request;
 use App\Http\Resources\StatusResource;
+use Illuminate\Support\Facades\Event;
 
 class StatusController extends Controller
 {
@@ -31,7 +33,11 @@ class StatusController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return StatusResource::make($status);
+        $statusResource = StatusResource::make($status);
+
+        StatusCreated::dispatch($statusResource);
+
+        return $statusResource;
     }
 
     public function show(Status $status)
